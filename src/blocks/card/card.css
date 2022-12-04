@@ -1,0 +1,17 @@
+.card {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  max-width: 880px;
+  margin: 50px auto 66px;
+  display: grid;
+  grid-row-gap: 20px;
+  grid-column-gap: 17px;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 282px));
+  transition: all 1000ms ease-in-out;
+}
+
+@media (max-width: 910px) {
+  .card {
+    max-width: 282px;
+    margin-bottom: 48px;
+  }
+}

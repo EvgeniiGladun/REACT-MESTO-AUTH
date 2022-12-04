@@ -1,0 +1,13 @@
+.profile__edit-img {
+  margin: 0;
+  padding: 0;
+  max-width: 24px;
+  max-height: 24px;
+}
+
+@media (max-width: 910px) {
+  .profile__edit-img {
+    width: 18px;
+    height: 18px;
+  }
+}

@@ -1,0 +1,12 @@
+.profile__edit-user {
+  display: flex;
+  margin: 0;
+  width: 350px;
+}
+
+@media (max-width: 910px) {
+  .profile__edit-user {
+    max-width: 282px;
+    margin: auto;
+  }
+}

@@ -1,0 +1,18 @@
+.popup__container_img {
+  display: flex;
+  padding: 0;
+  width: auto;
+  max-height: 75vh;
+  max-width: 75vw;
+  background: none;
+  color: #fff;
+  align-items: flex-start;
+  flex-direction: column;
+  transition: all 500ms ease-in-out;
+}
+
+@media (max-width: 550px) {
+  .popup__container_img {
+    margin: 136px 40px 111px;
+  }
+}

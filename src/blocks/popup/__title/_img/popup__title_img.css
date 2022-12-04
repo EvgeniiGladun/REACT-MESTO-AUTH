@@ -1,0 +1,16 @@
+.popup__title_img {
+  color: #fff;
+  max-width: 291px;
+  margin: 10px 0 0;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+@media (max-width: 550px) {
+  .popup__title_img {
+    max-width: 240px;
+  }
+}

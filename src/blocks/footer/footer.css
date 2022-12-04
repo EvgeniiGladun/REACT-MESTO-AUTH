@@ -1,0 +1,11 @@
+.footer {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  max-width: 880px;
+  margin: 0 auto 60px;
+}
+
+@media (max-width: 910px) {
+  .footer {
+    margin: 0 19px 36px;
+  }
+}

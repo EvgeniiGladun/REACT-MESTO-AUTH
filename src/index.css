@@ -1,0 +1,126 @@
+/** Сброс стилей браузера **/
+@import url(./vendor/normalize.css);
+
+/** fonts подключенные шрифты **/
+@import url(./vendor/fonts/fonts.css);
+
+/** body сайта **/
+@import url(./blocks/body/body.css);
+
+/** page сайта **/
+@import url(./blocks/page/page.css);
+
+/** header сайта **/
+@import url(./blocks/header/header.css);
+
+/** logo сайта **/
+@import url(./blocks/logo/logo.css);
+
+/** profile сайта **/
+@import url(./blocks/profile/profile.css);
+
+/** avatar сайта **/
+@import url(./blocks/profile/__avatar/profile__avatar.css);
+
+/** info сайта **/
+@import url(./blocks/profile/__info/profile__info.css);
+
+/** name сайта **/
+@import url(./blocks/profile/__name/profile__name.css);
+
+/** specialty сайта **/
+@import url(./blocks/profile/__specialty/profile__specialty.css);
+
+/** __edit-user сайта **/
+@import url(./blocks/profile/__edit-user/profile__edit-user.css);
+
+/** edit-button сайта **/
+@import url(./blocks/profile/__edit-button/profile__edit-button.css);
+
+/** edit-button сайта **/
+@import url(./blocks/profile/__add-button/profile__add-button.css);
+
+/** _size сайта **/
+@import url(./blocks/profile/__edit-img/profile__edit-img.css);
+
+/** card сайта **/
+@import url(./blocks/card/card.css);
+
+@import url(./blocks/card/__block-actions/card__block-actions.css);
+@import url(./blocks/card/__quantity-like/card__quantity-like.css);
+@import url(./blocks/profile/__avatar-edit/profile__avatar-edit.css);
+
+/** card сайта **/
+@import url(./blocks/card/__cards/card__cards.css);
+
+/** card__image сайта **/
+@import url(./blocks/card/__image/card__image.css);
+
+/** discrition сайта **/
+@import url(./blocks/card/__discrition/card__discription.css);
+
+/** card__title сайта **/
+@import url(./blocks/card/__title/card__title.css);
+
+/** rectangle-like сайта **/
+@import url(./blocks/card/__rectangle-like/card__rectangle-like.css);
+
+/** rectangle-like_active сайта **/
+@import url(./blocks/card/__rectangle-like/_active/card__rectangle-like_active.css);
+
+/** rectangle-remove сайта **/
+@import url(./blocks/card/__rectangle-remove/card__rectangle-remove.css);
+
+/** rectangle-remove_hide сайта **/
+@import url(./blocks/card/__rectangle-remove/_hide/card__rectangle-remove_hide.css);
+
+/** footer сайта **/
+@import url(./blocks/footer/footer.css);
+
+/** __copyright сайта **/
+@import url(./blocks/footer/__copyright/footer__copyright.css);
+
+/** popup сайта **/
+@import url(./blocks/popup/popup.css);
+
+/** __container сайта **/
+@import url(./blocks/popup/__container/popup__container.css);
+
+/** _opened сайта **/
+@import url(./blocks/popup/_opened/popup_opened.css);
+
+/** __close сайта **/
+@import url(./blocks/popup/__close/popup__close.css);
+
+/** __save сайта **/
+@import url(./blocks/popup/__save/popup__save.css);
+@import url(./blocks/popup/__save/popup__save.css);
+
+/** __save_disabled сайта **/
+@import url(./blocks/popup/__save/_disabled/popup__save_disabled.css);
+
+/** __title сайта **/
+@import url(./blocks/popup/__title/popup__title.css);
+
+/** __text сайта **/
+@import url(./blocks/popup/__text/popup__text.css);
+
+@import url(./blocks/popup/__text-block/popup__text-block.css);
+
+/** __text_type_error сайта **/
+@import url(./blocks/popup/__text/_type/_error/popup__text_type_error.css);
+
+/** __text_type_error сайта **/
+@import url(./blocks/popup/__text-error/popup__text-error.css);
+
+/** __form сайта **/
+@import url(./blocks/popup/__form/popup__form.css);
+
+/**  popup подтверждения удаления карточки **/
+@import url(./blocks/popup/__title/_warning/popup__title_warning.css);
+
+/** popup для картинок сайта **/
+@import url(./blocks/popup/__img/popup__img.css);
+@import url(./blocks/popup/__container/_img/popup__container_img.css);
+@import url(./blocks/popup/__title/_img/popup__title_img.css);
+@import url(./blocks/popup/__popup-img/popup__popup-img.css);

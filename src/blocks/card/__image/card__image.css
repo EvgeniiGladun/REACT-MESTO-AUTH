@@ -1,0 +1,21 @@
+.card__image {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 282px;
+  min-height: 282px;
+  width: 100%;
+  min-width: 282px;
+  transition: all 0.1s ease-in;
+  box-sizing: border-box;
+  background-size: 50%, contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.card__image:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+  cursor: pointer;
+}

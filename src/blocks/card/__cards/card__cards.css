@@ -1,0 +1,9 @@
+.card__cards {
+  max-width: 282px;
+  margin: 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}

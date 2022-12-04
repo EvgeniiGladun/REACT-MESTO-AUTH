@@ -1,0 +1,10 @@
+.popup__form {
+  width: 358px;
+  transition: all 500ms ease-in-out;
+}
+
+@media (max-width: 550px) {
+  .popup__form {
+    width: 238px;
+  }
+}

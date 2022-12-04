@@ -1,0 +1,19 @@
+.card__rectangle-like {
+  background-image: url(../../../images/favicon-icon/like.svg);
+  background-repeat: no-repeat;
+  background-color: white;
+  margin: auto 0 auto 0;
+  border: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.card__rectangle-like:hover {
+  opacity: 0.5;
+  outline: none;
+  cursor: pointer;
+}
+
+.card__rectangle-like:focus {
+  outline: none;
+}

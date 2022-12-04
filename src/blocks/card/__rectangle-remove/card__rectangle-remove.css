@@ -1,0 +1,22 @@
+.card__rectangle-remove {
+  background-image: url(../../../images/favicon-icon/remove.svg);
+  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0);
+  right: 18px;
+  top: 15px;
+  position: absolute;
+  width: 18px;
+  height: 19px;
+  border: 0;
+  margin: 0;
+  z-index: 1;
+}
+
+.card__rectangle-remove:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.card__rectangle-remove:focus {
+  outline: none;
+}
