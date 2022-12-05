@@ -2,12 +2,12 @@
   font-family: Inter, Arial, Helvetica, sans-serif;
   position: relative;
   display: flex;
-  margin-top: 45px;
+  margin: 45px 0 60px;
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
 
 @media (max-width: 320px) {
   .header {
-    margin: 28px 0 42px 0;
+    margin: 28px 0 40px 0;
   }
 }

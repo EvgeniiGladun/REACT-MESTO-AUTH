@@ -1,19 +1,25 @@
-import { userContex } from "../contexts/CurrentUserContext";
+import { userContex } from '../contexts/CurrentUserContext';
 
-import React from "react";
-import api from "../utils/Api";
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import api from '../utils/Api';
 
-import Header from "./Header";
-import Main from "./Main";
-import Footer from "./Footer";
-import ImagePopup from "./ImagePopup";
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import ImagePopup from './ImagePopup';
 
-import EditAvatarPopup from "./EditAvatarPopup";
-import EditProfilePopup from "./EditProfilePopup";
-import AddPlacePopup from "./AddPlacePopup";
-import СonfirmationRemovePopup from "./СonfirmationRemovePopup";
+import EditAvatarPopup from './EditAvatarPopup';
+import EditProfilePopup from './EditProfilePopup';
+import AddPlacePopup from './AddPlacePopup';
+import СonfirmationRemovePopup from './СonfirmationRemovePopup';
 
-import Spinner from "./Spinner";
+import Login from './Login';
+import Register from './Register';
+import InfoTooltip from './InfoTooltip';
+import ProtectedRoute from './ProtectedRoute';
+
+import Spinner from './Spinner';
 
 
 function App() {
@@ -24,13 +30,17 @@ function App() {
     React.useState(false);
   const [isСonfirmationPopupOpen, setIsСonfirmationPopupOpen] =
     React.useState(false);
+  const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] =
+    React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState(null);
   const [cards, setCards] = React.useState([]);
   const [card, setCard] = React.useState({});
   const [loading, setLoading] = React.useState(false);
-  const [loadingText, setLoadingText] = React.useState("");
+  const [loadingText, setLoadingText] = React.useState('');
   const [btnFormText, setBtnFormText] = React.useState(`Сохранить`);
+  const [loggedIn, setLoggedIn] = React.useState(false)
+  const [requestStatus, setRequestStatus] = React.useState(false);
 
   React.useEffect(() => {
     // Загрузочный экран
@@ -184,6 +194,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsСonfirmationPopupOpen(false);
+    setInfoTooltipPopupOpen(false);
     setSelectedCard(false);
   };
 
@@ -192,47 +203,95 @@ function App() {
       {loading ? (
         <Spinner loading={loading} spinnerText={loadingText} />
       ) : (
-        <userContex.Provider value={currentUser}>
+        <>
           <Header />
-          <Main
-            arrCards={cards}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onEditAvatar={handleEditAvatarClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onСonfirmationRemove={handleСonfirmationClick}
-          />
+          <Switch>
+            <userContex.Provider value={currentUser}>
+              <ProtectedRoute
+                path='/'
+                component={Main}
+                loggedIn={loggedIn}
+                arrCards={cards}
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onEditAvatar={handleEditAvatarClick}
+                onCardClick={handleCardClick}
+                onCardLike={handleCardLike}
+                onСonfirmationRemove={handleСonfirmationClick}
+              >
 
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-          <EditAvatarPopup
-            isOpen={isEditAvatarPopupOpen}
-            btnText={btnFormText}
-            onUpdateAvatar={handleUpdateAvatar}
-            onClose={closeAllPopups}
-          />
-          <EditProfilePopup
-            isOpenEditProfile={isEditProfilePopupOpen}
-            btnText={btnFormText}
-            onUpdateUser={handleUpdateUser}
-            onClose={closeAllPopups}
-          />
-          <AddPlacePopup
-            isOpenAddPlace={isAddPlacePopupOpen}
-            btnText={btnFormText}
-            onAddPlace={handleAddPlaceSubmit}
-            onClose={closeAllPopups}
-          />
-          <СonfirmationRemovePopup
-            isOpenСonfirmation={isСonfirmationPopupOpen}
-            btnText={btnFormText}
-            onCardDelete={handleCardDelete}
-            card={card}
-            onСonfirmationRemove={handleСonfirmationClick}
-            onClose={closeAllPopups}
-          />
-          <Footer />
-        </userContex.Provider>
+                <Footer />
+              </ProtectedRoute>
+
+              <ProtectedRoute
+                component={EditAvatarPopup}
+                loggedIn={loggedIn}
+                isOpen={isEditAvatarPopupOpen}
+                btnText={btnFormText}
+                onUpdateAvatar={handleUpdateAvatar}
+                onClose={closeAllPopups}
+              />
+
+
+              <ProtectedRoute
+                component={ImagePopup}
+                card={selectedCard}
+                onClose={closeAllPopups}
+                />
+
+              <ProtectedRoute
+                component={EditProfilePopup}
+                isOpenEditProfile={isEditProfilePopupOpen}
+                btnText={btnFormText}
+                onUpdateUser={handleUpdateUser}
+                onClose={closeAllPopups}
+              />
+
+              <ProtectedRoute
+                component={AddPlacePopup}
+                isOpenAddPlace={isAddPlacePopupOpen}
+                btnText={btnFormText}
+                onAddPlace={handleAddPlaceSubmit}
+              />
+
+              <ProtectedRoute
+                component={СonfirmationRemovePopup}
+                isOpenСonfirmation={isСonfirmationPopupOpen}
+                btnText={btnFormText}
+                onCardDelete={handleCardDelete}
+                card={card}
+                onСonfirmationRemove={handleСonfirmationClick}
+              />
+              
+            </userContex.Provider>
+
+            <Route path='/sign-in'>
+              <Login />
+              <InfoTooltip
+                requestStatus={requestStatus}
+                isOpenInfoTooltip={isInfoTooltipPopupOpen}
+                name={'infoTolip'}
+                onClose={closeAllPopups}
+              />
+            </Route>
+
+            <Route path='/sign-up'>
+              <Register />
+              <InfoTooltip
+                requestStatus={requestStatus}
+                isOpenInfoTooltip={isInfoTooltipPopupOpen}
+                name={'infoTolip'}
+                onClose={closeAllPopups}
+              />
+            </Route>
+
+            <Route exact path='/'>
+              {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
+            </Route>
+
+          </Switch>
+
+        </>
       )}
     </>
   );

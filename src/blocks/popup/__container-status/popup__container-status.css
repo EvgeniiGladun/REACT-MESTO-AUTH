@@ -1,0 +1,9 @@
+.popup__container-status {
+  padding: 60px 36px;
+}
+
+@media (max-width: 320px) {
+  .popup__container-status {
+    padding: 50px 18px;
+  }
+}

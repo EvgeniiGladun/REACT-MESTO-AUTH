@@ -124,3 +124,22 @@
 @import url(./blocks/popup/__container/_img/popup__container_img.css);
 @import url(./blocks/popup/__title/_img/popup__title_img.css);
 @import url(./blocks/popup/__popup-img/popup__popup-img.css);
+
+/**  popup провека статуса запроса **/
+@import url(./blocks/popup/__request-status/popup__request-status.css);
+@import url(./blocks/popup/__status-icon/popup__status-icon.css);
+@import url(./blocks/popup/__title-status/popup__title-status.css);
+@import url(./blocks/popup/__container-status/popup__container-status.css);
+
+/**  Подключения стилей "входа" и "регистрации" **/
+@import url(./blocks/sign/__actions/_disabled/sign__actions_disabled.css);
+@import url(./blocks/sign/__actions/sign__actions.css);
+@import url(./blocks/sign/__container/sign__container.css);
+@import url(./blocks/sign/__form/sign__form.css);
+@import url(./blocks/sign/__text-block/sign__text-block.css);
+@import url(./blocks/sign/__text-error/sign__text-error.css);
+@import url(./blocks/sign/__text/_type/_error/sign__text_type_error.css);
+@import url(./blocks/sign/__text/sign__text.css);
+@import url(./blocks/sign/__title/sign__title.css);
+@import url(./blocks/sign/__text-registration/sign__text-registration.css);
+

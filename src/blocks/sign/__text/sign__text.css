@@ -1,0 +1,13 @@
+.sign__text {
+  color: #cccccc;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 0 0 13px;
+  width: 100%;
+  border: none;
+  border-radius: 2%;
+  border-bottom: 2px solid #cccccc;
+  background-color: transparent;
+  outline: none;
+}

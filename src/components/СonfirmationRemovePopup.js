@@ -1,5 +1,5 @@
-import React from "react";
-import PopupWithForm from "./PopupWithForm";
+import React from 'react';
+import PopupWithForm from './PopupWithForm';
 
 function СonfirmationRemovePopup(props) {
   function handleConfirmSubmit(evt) {
@@ -12,9 +12,9 @@ function СonfirmationRemovePopup(props) {
     <div onSubmit={handleConfirmSubmit}>
       <PopupWithForm
         isOpen={props.isOpenСonfirmation}
-        title="Вы уверены?"
+        title='Вы уверены?'
         buttonText={props.btnText}
-        name="confirm"
+        name='confirm'
         onClose={props.onClose}
       />
     </div>

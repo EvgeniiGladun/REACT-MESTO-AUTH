@@ -1,7 +1,7 @@
-import { userContex } from "../contexts/CurrentUserContext";
+import { userContex } from '../contexts/CurrentUserContext';
 
-import React from "react";
-import PopupWithForm from "./PopupWithForm";
+import React from 'react';
+import PopupWithForm from './PopupWithForm';
 
 function EditProfilePopup(props) {
   // Подписка на контекст
@@ -37,45 +37,42 @@ function EditProfilePopup(props) {
     <div onSubmit={handleSubmit}>
       <PopupWithForm
         isOpen={props.isOpenEditProfile}
-        title="Редактировать профиль"
+        title='Редактировать профиль'
         buttonText={props.btnText}
-        name="edit"
-        children={
-          <>
-            <input
-              id="name-input"
-              className="popup__text popup__text_user_name"
-              type="text"
-              name="name"
-              minLength="2"
-              maxLength="40"
-              placeholder="Имя"
-              onChange={handleChange}
-              value={values.name || ''}
-              required
-            />
-            <div className="popup__text-block">
-              <span className="popup__text-error name-input-error"></span>
-            </div>
-            <input
-              id="specialty-input"
-              className="popup__text popup__text_user_specialty"
-              type="text"
-              name="about"
-              minLength="2"
-              maxLength="200"
-              placeholder="Вид деятельности"
-              onChange={handleChange}
-              value={values.about || ''}
-              required
-            />
-            <div className="popup__text-block">
-              <span className="popup__text-error specialty-input-error"></span>
-            </div>
-          </>
-        }
+        name='edit'
         onClose={props.onClose}
-      />
+      >
+        <input
+          id='name-input'
+          className='popup__text popup__text_user_name'
+          type='text'
+          name='name'
+          minLength='2'
+          maxLength='40'
+          placeholder='Имя'
+          onChange={handleChange}
+          value={values.name || ''}
+          required
+        />
+        <div className='popup__text-block'>
+          <span className='popup__text-error name-input-error'></span>
+        </div>
+        <input
+          id='specialty-input'
+          className='popup__text popup__text_user_specialty'
+          type='text'
+          name='about'
+          minLength='2'
+          maxLength='200'
+          placeholder='Вид деятельности'
+          onChange={handleChange}
+          value={values.about || ''}
+          required
+        />
+        <div className='popup__text-block'>
+          <span className='popup__text-error specialty-input-error'></span>
+        </div>
+      </PopupWithForm>
     </div>
   );
 }
