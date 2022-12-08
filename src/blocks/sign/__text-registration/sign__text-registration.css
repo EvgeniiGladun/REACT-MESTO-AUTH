@@ -18,7 +18,7 @@
 }
 
 .sign__text-registration a:hover {
-  color: rgba(255, 255, 255, .8);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 @media (max-width: 320px) {

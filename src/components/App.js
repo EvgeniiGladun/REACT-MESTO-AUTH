@@ -1,26 +1,26 @@
-import { userContex } from '../contexts/CurrentUserContext';
+import { userContex } from "../contexts/CurrentUserContext";
 
-import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import api from '../utils/Api';
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
+import api from "../utils/Api";
+import auth from "./Auth";
 
-import Header from './Header';
-import Main from './Main';
-import Footer from './Footer';
-import ImagePopup from './ImagePopup';
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
+import ImagePopup from "./ImagePopup";
 
-import EditAvatarPopup from './EditAvatarPopup';
-import EditProfilePopup from './EditProfilePopup';
-import AddPlacePopup from './AddPlacePopup';
-import СonfirmationRemovePopup from './СonfirmationRemovePopup';
+import EditAvatarPopup from "./EditAvatarPopup";
+import EditProfilePopup from "./EditProfilePopup";
+import AddPlacePopup from "./AddPlacePopup";
+import СonfirmationRemovePopup from "./СonfirmationRemovePopup";
 
-import Login from './Login';
-import Register from './Register';
-import InfoTooltip from './InfoTooltip';
-import ProtectedRoute from './ProtectedRoute';
+import Login from "./Login";
+import Register from "./Register";
+import InfoTooltip from "./InfoTooltip";
+import ProtectedRoute from "./ProtectedRoute";
 
-import Spinner from './Spinner';
-
+import Spinner from "./Spinner";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -37,10 +37,30 @@ function App() {
   const [cards, setCards] = React.useState([]);
   const [card, setCard] = React.useState({});
   const [loading, setLoading] = React.useState(false);
-  const [loadingText, setLoadingText] = React.useState('');
+  const [loadingText, setLoadingText] = React.useState("");
   const [btnFormText, setBtnFormText] = React.useState(`Сохранить`);
-  const [loggedIn, setLoggedIn] = React.useState(false)
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [requestStatus, setRequestStatus] = React.useState(false);
+
+  React.useEffect(() => {
+    function handleTokenCheck() {
+      if (localStorage.getItem("jwt")) {
+        const jwt = localStorage.getItem("jwt");
+        if (jwt) {
+          auth
+            .getAuthenticationUser(jwt)
+            .then((res) => {
+              if (res) {
+                setLoggedIn(true);
+              }
+            })
+            .catch((err) => console.log(err));
+        }
+      }
+    }
+
+    handleTokenCheck();
+  }, []);
 
   React.useEffect(() => {
     // Загрузочный экран
@@ -62,6 +82,11 @@ function App() {
         console.log(err); // выведем ошибку в консоль
       });
   }, []);
+
+  function handleLoggedIn(evt) {
+    evt.preventDefault();
+    setLoggedIn(true);
+  }
 
   function handleCardLike(card) {
     // Проверяем, есть ли уже лайк на этой карточке
@@ -122,6 +147,11 @@ function App() {
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
+  };
+
+  const handleInfoTooltip = (boolean) => {
+    setInfoTooltipPopupOpen(true);
+    setRequestStatus(boolean);
   };
 
   const spinnerInfo = (boolew, text) => {
@@ -205,10 +235,33 @@ function App() {
       ) : (
         <>
           <Header />
+
           <Switch>
+            <Route path="/sign-up">
+              <Register auth={auth} booleanRequestStatus={handleInfoTooltip} />
+              <InfoTooltip
+                isRequestStatus={requestStatus}
+                isOpenInfoTooltip={isInfoTooltipPopupOpen}
+                onClose={closeAllPopups}
+              />
+            </Route>
+
+            <Route path="/sign-in">
+              <Login
+                auth={auth}
+                handleLoggedIn={handleLoggedIn}
+                booleanRequestStatus={handleInfoTooltip}
+              />
+              <InfoTooltip
+                isRequestStatus={requestStatus}
+                isOpenInfoTooltip={isInfoTooltipPopupOpen}
+                onClose={closeAllPopups}
+              />
+            </Route>
+
             <userContex.Provider value={currentUser}>
               <ProtectedRoute
-                path='/'
+                path="/"
                 component={Main}
                 loggedIn={loggedIn}
                 arrCards={cards}
@@ -218,79 +271,40 @@ function App() {
                 onCardClick={handleCardClick}
                 onCardLike={handleCardLike}
                 onСonfirmationRemove={handleСonfirmationClick}
-              >
-
-                <Footer />
-              </ProtectedRoute>
-
-              <ProtectedRoute
-                component={EditAvatarPopup}
-                loggedIn={loggedIn}
+              />
+              <EditAvatarPopup
                 isOpen={isEditAvatarPopupOpen}
                 btnText={btnFormText}
                 onUpdateAvatar={handleUpdateAvatar}
                 onClose={closeAllPopups}
               />
-
-
-              <ProtectedRoute
-                component={ImagePopup}
-                card={selectedCard}
-                onClose={closeAllPopups}
-                />
-
-              <ProtectedRoute
-                component={EditProfilePopup}
+              <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+              <EditProfilePopup
                 isOpenEditProfile={isEditProfilePopupOpen}
                 btnText={btnFormText}
                 onUpdateUser={handleUpdateUser}
                 onClose={closeAllPopups}
               />
-
-              <ProtectedRoute
-                component={AddPlacePopup}
+              <AddPlacePopup
                 isOpenAddPlace={isAddPlacePopupOpen}
                 btnText={btnFormText}
                 onAddPlace={handleAddPlaceSubmit}
+                onClose={closeAllPopups}
               />
-
-              <ProtectedRoute
-                component={СonfirmationRemovePopup}
+              <СonfirmationRemovePopup
                 isOpenСonfirmation={isСonfirmationPopupOpen}
                 btnText={btnFormText}
                 onCardDelete={handleCardDelete}
                 card={card}
                 onСonfirmationRemove={handleСonfirmationClick}
               />
-              
+              <Footer />
             </userContex.Provider>
 
-            <Route path='/sign-in'>
-              <Login />
-              <InfoTooltip
-                requestStatus={requestStatus}
-                isOpenInfoTooltip={isInfoTooltipPopupOpen}
-                name={'infoTolip'}
-                onClose={closeAllPopups}
-              />
+            <Route exact path="/">
+              {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
             </Route>
-
-            <Route path='/sign-up'>
-              <Register />
-              <InfoTooltip
-                requestStatus={requestStatus}
-                isOpenInfoTooltip={isInfoTooltipPopupOpen}
-                name={'infoTolip'}
-                onClose={closeAllPopups}
-              />
-            </Route>
-
-            <Route exact path='/'>
-              {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
-            </Route>
-
           </Switch>
-
         </>
       )}
     </>

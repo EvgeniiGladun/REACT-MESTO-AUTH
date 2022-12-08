@@ -1,11 +1,11 @@
-import './index.css';
+import "./index.css";
 
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import ReactDOM from "react-dom/client";
 
-import App from './components/App';
-import reportWebVitals from './reportWebVitals';
+import App from "./components/App";
+import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.querySelector("#root"));
 root.render(

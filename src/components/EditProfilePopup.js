@@ -1,7 +1,7 @@
-import { userContex } from '../contexts/CurrentUserContext';
+import { userContex } from "../contexts/CurrentUserContext";
 
-import React from 'react';
-import PopupWithForm from './PopupWithForm';
+import React from "react";
+import PopupWithForm from "./PopupWithForm";
 
 function EditProfilePopup(props) {
   // Подписка на контекст
@@ -11,9 +11,9 @@ function EditProfilePopup(props) {
   // Присваиваем стейт-переменным данные пользователя с API
   React.useEffect(() => {
     setValues({
-      name: currentUser ? currentUser.name : '',
-      about: currentUser ? currentUser.about : ''
-    })
+      name: currentUser ? currentUser.name : "",
+      about: currentUser ? currentUser.about : "",
+    });
   }, [currentUser, props.isOpenEditProfile]);
 
   // Обработка полей формы, забираем данные
@@ -22,8 +22,8 @@ function EditProfilePopup(props) {
     setValues({
       ...values,
       [name]: value,
-    })
-  }
+    });
+  };
 
   function handleSubmit(evt) {
     // Запрещаем браузеру переходить по адресу формы
@@ -37,40 +37,40 @@ function EditProfilePopup(props) {
     <div onSubmit={handleSubmit}>
       <PopupWithForm
         isOpen={props.isOpenEditProfile}
-        title='Редактировать профиль'
+        title="Редактировать профиль"
         buttonText={props.btnText}
-        name='edit'
+        name="edit"
         onClose={props.onClose}
       >
         <input
-          id='name-input'
-          className='popup__text popup__text_user_name'
-          type='text'
-          name='name'
-          minLength='2'
-          maxLength='40'
-          placeholder='Имя'
+          id="name-input"
+          className="popup__text popup__text_user_name"
+          type="text"
+          name="name"
+          minLength="2"
+          maxLength="40"
+          placeholder="Имя"
           onChange={handleChange}
-          value={values.name || ''}
+          value={values.name || ""}
           required
         />
-        <div className='popup__text-block'>
-          <span className='popup__text-error name-input-error'></span>
+        <div className="popup__text-block">
+          <span className="popup__text-error name-input-error"></span>
         </div>
         <input
-          id='specialty-input'
-          className='popup__text popup__text_user_specialty'
-          type='text'
-          name='about'
-          minLength='2'
-          maxLength='200'
-          placeholder='Вид деятельности'
+          id="specialty-input"
+          className="popup__text popup__text_user_specialty"
+          type="text"
+          name="about"
+          minLength="2"
+          maxLength="200"
+          placeholder="Вид деятельности"
           onChange={handleChange}
-          value={values.about || ''}
+          value={values.about || ""}
           required
         />
-        <div className='popup__text-block'>
-          <span className='popup__text-error specialty-input-error'></span>
+        <div className="popup__text-block">
+          <span className="popup__text-error specialty-input-error"></span>
         </div>
       </PopupWithForm>
     </div>

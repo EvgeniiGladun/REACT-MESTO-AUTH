@@ -2,6 +2,7 @@
   font-family: Inter, Arial, Helvetica, sans-serif;
   position: relative;
   display: flex;
+  justify-content: space-between;
   margin: 45px 0 60px;
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
