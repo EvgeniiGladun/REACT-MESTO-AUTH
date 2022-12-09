@@ -25,6 +25,7 @@ class Auth {
       })
       .then((data) => {
         localStorage.setItem("token", data.token);
+        return data;
       });
   }
 

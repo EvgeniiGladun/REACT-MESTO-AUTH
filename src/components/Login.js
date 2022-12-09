@@ -1,6 +1,9 @@
 import React from "react";
 
+import { useHistory } from "react-router-dom";
+
 function Login({ booleanRequestStatus, handleLoggedIn, ...props }) {
+  const history = useHistory();
   const [userDataIn, setUserDataIn] = React.useState({
     email: "",
     password: "",
@@ -40,7 +43,7 @@ function Login({ booleanRequestStatus, handleLoggedIn, ...props }) {
             password: "",
           });
           handleLogged(evt);
-          // props.history.push('/');
+          history.push('/');
           return data;
         }
       })

@@ -10,11 +10,6 @@ function Register({ booleanRequestStatus, ...props }) {
     password: "",
   });
 
-  // История перемещения
-  // const handleHistory = () => {
-  //   history.push('/sign-in');
-  // }
-
   const handleBooleanValue = (booleanValue) => {
     booleanRequestStatus(booleanValue);
   };

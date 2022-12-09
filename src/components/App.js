@@ -1,7 +1,7 @@
 import { userContex } from "../contexts/CurrentUserContext";
 
 import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import api from "../utils/Api";
 import auth from "./Auth";
 
@@ -23,6 +23,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Spinner from "./Spinner";
 
 function App() {
+  const history = useHistory();
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -41,26 +42,27 @@ function App() {
   const [btnFormText, setBtnFormText] = React.useState(`Сохранить`);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [requestStatus, setRequestStatus] = React.useState(false);
+  const [headerEmail, setHeaderEmail] = React.useState('');
+
 
   React.useEffect(() => {
-    function handleTokenCheck() {
-      if (localStorage.getItem("jwt")) {
-        const jwt = localStorage.getItem("jwt");
-        if (jwt) {
-          auth
-            .getAuthenticationUser(jwt)
-            .then((res) => {
-              if (res) {
-                setLoggedIn(true);
-              }
-            })
-            .catch((err) => console.log(err));
-        }
+    if (localStorage.getItem("jwt")) {
+      const jwt = localStorage.getItem("jwt");
+      if (jwt) {
+        auth
+          .getAuthenticationUser(jwt)
+          .then((res) => {
+            if (res) {
+
+              setLoggedIn(true);
+              setHeaderEmail(res.data.email);
+              history.push('/');
+            }
+          })
+          .catch((err) => console.log(err));
       }
     }
-
-    handleTokenCheck();
-  }, []);
+  })
 
   React.useEffect(() => {
     // Загрузочный экран
@@ -234,7 +236,9 @@ function App() {
         <Spinner loading={loading} spinnerText={loadingText} />
       ) : (
         <>
-          <Header />
+          <Header
+            emailUser={headerEmail}
+          />
 
           <Switch>
             <Route path="/sign-up">

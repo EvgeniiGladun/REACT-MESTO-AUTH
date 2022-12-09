@@ -1,0 +1,5 @@
+@media (max-width: 320px) {
+  .header__menu_login {
+    display: none;
+  }
+}

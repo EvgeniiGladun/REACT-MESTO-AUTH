@@ -1,0 +1,15 @@
+.header__menu-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+@media (max-width: 320px) {
+  .header__menu-info {
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    gap: 18px;
+    margin: 40px auto;
+  }
+}
