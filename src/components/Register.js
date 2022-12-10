@@ -1,17 +1,17 @@
 import React from "react";
 
-// История перемещения
-import { Link, useHistory } from "react-router-dom";
+// Перемещения по компонентам
+import { Link } from "react-router-dom";
 
-function Register({ booleanRequestStatus, ...props }) {
-  const history = useHistory();
+function Register({ onRegister }) {
   const [userDataUp, setUserDataUp] = React.useState({
     email: "",
     password: "",
   });
 
-  const handleBooleanValue = (booleanValue) => {
-    booleanRequestStatus(booleanValue);
+  // Отправляем данные в App для отправки на сервер
+  const handleRegisterUp = (email, password) => {
+    onRegister(email, password);
   };
 
   // Обработка полей формы, забираем данные
@@ -31,18 +31,8 @@ function Register({ booleanRequestStatus, ...props }) {
       return;
     }
     const { email, password } = userDataUp;
-    props.auth
-      .setRegisterUser(email.toLowerCase(), password)
-      .then((res) => {
-        if (res) {
-          handleBooleanValue(true);
-          history.push('/sign-in');
-        }
-      })
-      .catch((err) => {
-        handleBooleanValue(false);
-        return console.log(err);
-      });
+    handleRegisterUp(email, password);
+
   }
 
   return (
@@ -55,7 +45,6 @@ function Register({ booleanRequestStatus, ...props }) {
           className="sign__form sign__form-registration"
           action="formRegistration"
           name="formRegistration"
-          noValidate
         >
           <input
             onChange={handleChange}
@@ -83,7 +72,7 @@ function Register({ booleanRequestStatus, ...props }) {
           </div>
 
           <button
-            className="sign__actions sign-entrance__actions sign__actions_disabled"
+            className="sign__actions sign-entrance__actions"
             type="submit"
           >
             Зарегистрироваться

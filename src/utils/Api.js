@@ -20,7 +20,7 @@ class Api {
     });
   }
 
-  // другие методы работы с API
+  // Запрашиваем данные пришедшего пользователя
   getInitialUsers() {
     return fetch(this.baseUrl + "/users/me", {
       headers: this.headers,
@@ -29,6 +29,7 @@ class Api {
     });
   }
 
+  // Обновляем данные пользваотеля
   setInitialUsers(name, about) {
     return fetch(this.baseUrl + "/users/me", {
       method: "PATCH",
@@ -42,6 +43,7 @@ class Api {
     });
   }
 
+  // Добавляем карту пользователя
   setAddNewCard(name, link) {
     return fetch(this.baseUrl + "/cards", {
       method: "POST",
@@ -55,6 +57,7 @@ class Api {
     });
   }
 
+  // Удаляем добавленную карту пользователя
   deleteCard(cardId) {
     return fetch(this.baseUrl + "/cards/" + cardId, {
       method: "DELETE",
@@ -64,6 +67,7 @@ class Api {
     });
   }
 
+  // Добавляем лайк пользователя
   pushLike(cardId) {
     return fetch(this.baseUrl + "/cards/" + cardId + "/likes/", {
       method: "PUT",
@@ -73,6 +77,7 @@ class Api {
     });
   }
 
+  // Удаляем лайк пользователя
   deleteLike(cardId) {
     return fetch(this.baseUrl + "/cards/" + cardId + "/likes/", {
       method: "DELETE",
@@ -82,6 +87,7 @@ class Api {
     });
   }
 
+  // Отправляем новую аватарку пользователя
   setNewAvatar(avatar) {
     return fetch(this.baseUrl + "/users/me/avatar/", {
       method: "PATCH",
@@ -94,6 +100,7 @@ class Api {
     });
   }
 
+  // Проверяем стоит ли лайк уже пользователя
   changeLikeCardStatus(cardId, isLiked) {
     return isLiked ? this.pushLike(cardId) : this.deleteLike(cardId);
   }

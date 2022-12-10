@@ -2,14 +2,11 @@ import React from "react";
 import successfully from "../images/authorization/successfully.svg";
 import unsuccessful from "../images/authorization/unsuccessful.svg";
 
-import "./InfoTooltip.css";
-
 function InfoTooltip(props) {
   return (
     <section
-      className={`popup popup-info-tool-tip ${
-        props.isOpenInfoTooltip ? "popup_opened" : ""
-      }`}
+      className={`popup popup-info-tool-tip ${props.isOpenInfoTooltip ? "popup_opened" : ""
+        }`}
     >
       <div className="popup__container popup__container-status">
         <button

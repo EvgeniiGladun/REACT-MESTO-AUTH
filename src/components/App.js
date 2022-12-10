@@ -3,7 +3,7 @@ import { userContex } from "../contexts/CurrentUserContext";
 import React from "react";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import api from "../utils/Api";
-import auth from "./Auth";
+import auth from "../utils/Auth";
 
 import Header from "./Header";
 import Main from "./Main";
@@ -44,29 +44,34 @@ function App() {
   const [requestStatus, setRequestStatus] = React.useState(false);
   const [headerEmail, setHeaderEmail] = React.useState('');
 
-
+  // Проверка JWT ключа в файлах пользвоателя
   React.useEffect(() => {
-    if (localStorage.getItem("jwt")) {
-      const jwt = localStorage.getItem("jwt");
-      if (jwt) {
-        auth
-          .getAuthenticationUser(jwt)
-          .then((res) => {
-            if (res) {
 
-              setLoggedIn(true);
-              setHeaderEmail(res.data.email);
-              history.push('/');
-            }
-          })
-          .catch((err) => console.log(err));
-      }
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      auth
+        .getAuthenticationUser(jwt)
+        .then((res) => {
+          if (res) {
+
+            setLoggedIn(true);
+            setHeaderEmail(res.data.email);
+            history.push('/');
+          }
+        })
+        .catch((err) => console.log(err));
     }
-  })
+  }, [])
 
   React.useEffect(() => {
+
     // Загрузочный экран
     spinnerInfo(true, `Загружаем сайт...😊`);
+
+    if (!loggedIn) {
+      setTimeout(() => spinnerInfo(false), 2000);
+      return;
+    }
 
     Promise.all([api.getInitialCards(), api.getInitialUsers()])
       .then(([dataCards, dataUser]) => {
@@ -75,20 +80,14 @@ function App() {
         // Делаю запрос данных - пользователя
         setCurrentUser(dataUser);
 
-        spinnerInfo(false);
-        setLoadingText(`Сохранить`);
+        spinnerInfo(false)
       })
 
       .catch((err) => {
         setLoadingText(`Карточки не загрузились... 😢 ${err}`);
         console.log(err); // выведем ошибку в консоль
       });
-  }, []);
-
-  function handleLoggedIn(evt) {
-    evt.preventDefault();
-    setLoggedIn(true);
-  }
+  }, [loggedIn]);
 
   function handleCardLike(card) {
     // Проверяем, есть ли уже лайк на этой карточке
@@ -161,6 +160,10 @@ function App() {
     setLoadingText(text);
   };
 
+  const handleLoggedIn = (boolew) => {
+    setLoggedIn(boolew)
+  }
+
   const handleUpdateUser = (dataUser) => {
     setBtnFormText(`Сохраняем крутые данные...😎`);
 
@@ -221,6 +224,39 @@ function App() {
       });
   };
 
+  const handleLogin = (email, password) => {
+    auth
+      .setAuthorizeUser(email.toLowerCase(), password)
+      .then((data) => {
+        if (data.token) {
+          setLoggedIn(true);
+          setHeaderEmail(email);
+          history.push('/');
+          return data;
+        }
+      })
+      .catch((err) => {
+        handleInfoTooltip(false);
+        return console.log(err);
+      });
+  }
+
+  const handleRegister = (email, password) => {
+    auth
+      .setRegisterUser(email.toLowerCase(), password)
+      .then((res) => {
+        if (res) {
+          handleInfoTooltip(true);
+          setHeaderEmail(email);
+          history.push('/sign-in');
+        }
+      })
+      .catch((err) => {
+        handleInfoTooltip(false);
+        return console.log(err);
+      });
+  }
+
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -238,11 +274,13 @@ function App() {
         <>
           <Header
             emailUser={headerEmail}
+            onLoggedIn={handleLoggedIn}
           />
 
           <Switch>
             <Route path="/sign-up">
-              <Register auth={auth} booleanRequestStatus={handleInfoTooltip} />
+              <Register auth={auth}
+                onRegister={handleRegister} />
               <InfoTooltip
                 isRequestStatus={requestStatus}
                 isOpenInfoTooltip={isInfoTooltipPopupOpen}
@@ -253,8 +291,7 @@ function App() {
             <Route path="/sign-in">
               <Login
                 auth={auth}
-                handleLoggedIn={handleLoggedIn}
-                booleanRequestStatus={handleInfoTooltip}
+                onLogin={handleLogin}
               />
               <InfoTooltip
                 isRequestStatus={requestStatus}
@@ -265,6 +302,7 @@ function App() {
 
             <userContex.Provider value={currentUser}>
               <ProtectedRoute
+                exact
                 path="/"
                 component={Main}
                 loggedIn={loggedIn}

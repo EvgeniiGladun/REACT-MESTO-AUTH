@@ -4,6 +4,7 @@ class Auth {
     this.headers = headers;
   }
 
+  // Првоеряем всё ли хорошо с пришедшим запросом
   _getResponseData(res) {
     if (!res.ok) {
       return Promise.reject(`Ошибка: ${res.status}`);
@@ -11,6 +12,7 @@ class Auth {
     return res.json();
   }
 
+  // Регестрируем нового пользователя
   setRegisterUser(email, password) {
     return fetch(this.baseUrl + "/signup", {
       method: "POST",
@@ -29,6 +31,7 @@ class Auth {
       });
   }
 
+  // Отправляем данные пользователя на авторизацию 
   setAuthorizeUser(email, password) {
     return fetch(this.baseUrl + "/signin", {
       method: "POST",
@@ -51,6 +54,7 @@ class Auth {
       });
   }
 
+  // Проверяем JWT пользователя 
   getAuthenticationUser(jwt) {
     return fetch(this.baseUrl + "/users/me", {
       method: "GET",

@@ -1,20 +1,13 @@
 import React from "react";
 
-import { useHistory } from "react-router-dom";
-
-function Login({ booleanRequestStatus, handleLoggedIn, ...props }) {
-  const history = useHistory();
+function Login({ onLogin, ...props }) {
   const [userDataIn, setUserDataIn] = React.useState({
     email: "",
     password: "",
   });
 
-  const handleBooleanValue = (booleanValue) => {
-    booleanRequestStatus(booleanValue);
-  };
-
-  const handleLogged = (evt) => {
-    handleLoggedIn(evt);
+  const handleLoginIn = (email, password) => {
+    onLogin(email, password);
   };
 
   // Обработка полей формы, забираем данные
@@ -34,23 +27,12 @@ function Login({ booleanRequestStatus, handleLoggedIn, ...props }) {
       return;
     }
     const { email, password } = userDataIn;
-    props.auth
-      .setAuthorizeUser(email.toLowerCase(), password)
-      .then((data) => {
-        if (data.token) {
-          setUserDataIn({
-            email: "",
-            password: "",
-          });
-          handleLogged(evt);
-          history.push('/');
-          return data;
-        }
-      })
-      .catch((err) => {
-        handleBooleanValue(false);
-        return console.log(err);
-      });
+    handleLoginIn(email, password);
+    setUserDataIn({
+      email: "",
+      password: "",
+    });
+
   }
 
   return (
@@ -63,7 +45,6 @@ function Login({ booleanRequestStatus, handleLoggedIn, ...props }) {
           className="sign__form sign__form-entrance"
           action="formEntrance"
           name="formEntrance"
-          noValidate
         >
           <input
             onChange={handleChange}
@@ -72,7 +53,6 @@ function Login({ booleanRequestStatus, handleLoggedIn, ...props }) {
             type="email"
             name="email"
             placeholder="Email"
-            defaultValue={""}
             required
           />
           <div className="sign__text-block">
@@ -92,7 +72,7 @@ function Login({ booleanRequestStatus, handleLoggedIn, ...props }) {
           </div>
 
           <button
-            className="sign__actions sign-entrance__actions sign__actions_disabled"
+            className="sign__actions sign-entrance__actions"
             type="submit"
           >
             Войти
