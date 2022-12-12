@@ -9,7 +9,7 @@
 - Update project (обновления проекта)
 - Спасибо!
 
-**Проект доступен по ссылке - [Mesto](https://evgeniigladun.github.io/MESTO-REACT/)**
+**Проект доступен по ссылке - [Mesto](https://evgeniigladun.github.io/REACT-MESTO-AUTH/)**
 
 **О чем проект?**
 Данный проект создан для познавательной информации.
